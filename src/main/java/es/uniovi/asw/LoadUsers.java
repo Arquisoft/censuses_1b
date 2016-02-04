@@ -1,6 +1,7 @@
 package es.uniovi.asw;
 
-import java.util.logging.Logger;
+import es.uniovi.asw.passer.Parser;
+import es.uniovi.asw.passer.excel.OfficeModerno;
 
 /**
  * Main application
@@ -17,6 +18,18 @@ public class LoadUsers {
 
 	// TODO
 	void run(String... args) {
-		System.out.println("TODO");
+		try {
+			
+			Parser parser = new OfficeModerno();
+			
+			for(String row : parser.loadCenso("./censo.xlsx")){
+				System.out.println(row);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
