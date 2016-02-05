@@ -1,5 +1,6 @@
 package es.uniovi.asw;
 
+import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.Parser;
 import es.uniovi.asw.passer.excel.OfficeModerno;
 
@@ -24,7 +25,10 @@ public class LoadUsers {
 			
 			for(String row : parser.loadCenso("./censo.xlsx")){
 				System.out.println(row);
+				
 			}
+			Votante v= new Votante("prueba", "preuba@prueba.es", "aaa","333333");
+			System.out.println(v.getPass());
 			
 			
 		} catch (Exception e) {
