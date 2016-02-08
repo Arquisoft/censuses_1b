@@ -2,7 +2,7 @@ package es.uniovi.asw;
 
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.Parser;
-import es.uniovi.asw.passer.excel.OfficeModerno;
+import es.uniovi.asw.passer.impl.ExcelParser;
 
 /**
  * Main application
@@ -21,10 +21,10 @@ public class LoadUsers {
 	void run(String... args) {
 		try {
 			
-			Parser parser = new OfficeModerno();
+			Parser parser = new ExcelParser();
 			
-			for(String row : parser.loadCenso("./censo.xlsx")){
-				System.out.println(row);
+			for(Votante votante : parser.loadCenso("./censo.xlsx")){
+				System.out.println(votante);
 				
 			}
 			Votante v= new Votante("prueba", "preuba@prueba.es", "aaa","333333");
