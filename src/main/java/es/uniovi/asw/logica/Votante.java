@@ -43,7 +43,11 @@ public class Votante {
 	public String getPass() {
 		return pass;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Votante [nombre=" + nombre + ", mail=" + mail + ", nif=" + nif
+				+ ", codigoColegio=" + codigoColegio + "]";
+	}
 
 }
