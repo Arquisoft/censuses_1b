@@ -1,5 +1,8 @@
 package es.uniovi.asw.logica;
 
+import es.uniovi.asw.passer.GeneradorPass;
+import es.uniovi.asw.passer.impl.HashedGenerator;
+
 public class Votante {
 	
 	private String nombre;
@@ -7,7 +10,7 @@ public class Votante {
 	private String nif;
 	private String codigoColegio;
 	
-	private GeneradorPass g;
+	
 	private String pass;
 	
 	public Votante(String nombre, String mail, String nif, String codigoColegio){
@@ -16,8 +19,7 @@ public class Votante {
 		this.nif=nif;
 		this.codigoColegio=codigoColegio;
 		
-		g=new SecureRandomGenerator();
-		this.pass=g.generar(this);
+		
 		
 	}
 
@@ -42,6 +44,10 @@ public class Votante {
 
 	public String getPass() {
 		return pass;
+	}
+	
+	public void setPass(String pass) {
+		this.pass=pass;
 	}
 
 	@Override

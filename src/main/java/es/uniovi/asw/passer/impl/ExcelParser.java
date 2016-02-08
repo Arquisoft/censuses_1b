@@ -13,6 +13,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import es.uniovi.asw.logica.Votante;
+import es.uniovi.asw.passer.GeneradorCartas;
+import es.uniovi.asw.passer.GeneradorPass;
 import es.uniovi.asw.passer.Parser;
 
 public class ExcelParser implements Parser {
@@ -43,10 +45,15 @@ public class ExcelParser implements Parser {
 			}
 			
 			if(datosVotante.size() == 4){
-				votantes.add(new Votante(datosVotante.get(0),
+				Votante v=new Votante(datosVotante.get(0),
 						datosVotante.get(1),
 						datosVotante.get(2),
-						datosVotante.get(3)));
+						datosVotante.get(3));
+				GeneradorPass gp= new HashedGenerator();
+				GeneradorCartas gc= new CartaTXT();
+				v.setPass(gp.generar(v));
+				votantes.add(v);
+				gc.generarCarta(v);
 			}
 			else{
 				System.err.println("Algo ha ido mal con estos datos: ");

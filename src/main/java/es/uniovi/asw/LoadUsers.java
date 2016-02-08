@@ -27,8 +27,7 @@ public class LoadUsers {
 				System.out.println(votante);
 				
 			}
-			Votante v= new Votante("prueba", "preuba@prueba.es", "aaa","333333");
-			System.out.println(v.getPass());
+			
 			
 			
 		} catch (Exception e) {
