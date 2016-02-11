@@ -1,6 +1,7 @@
 package es.uniovi.asw;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class ReadCensusExcelTest {
 
 	@Test
 	public void testExcelModernoNumeroVotantes() throws Exception {
-		ReadCensus readCensus = new ReadCensusExcel();
-		List<Votante> votantes = readCensus.loadCenso("src/test/resources/censo_correcto.xlsx"); 
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_correcto.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
 		
 		//Comprobamos número de votantes
 		assertEquals(votantes.size(), 3);
@@ -23,8 +24,8 @@ public class ReadCensusExcelTest {
 	
 	@Test
 	public void testExcelAntiguoNumeroVotantes() throws Exception {
-		ReadCensus readCensus = new ReadCensusExcel();
-		List<Votante> votantes = readCensus.loadCenso("src/test/resources/censo_correcto.xls"); 
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_correcto.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
 		
 		//Comprobamos número de votantes
 		assertEquals(votantes.size(), 3);
@@ -32,8 +33,8 @@ public class ReadCensusExcelTest {
 	
 	@Test
 	public void testExcelModernoDatosCorrectos() throws Exception {
-		ReadCensus readCensus = new ReadCensusExcel();
-		List<Votante> votantes = readCensus.loadCenso("src/test/resources/censo_correcto.xlsx"); 
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_correcto.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
 		
 		//Comprobamos los datos del votante 1
 		Votante votante1 = votantes.get(0);
@@ -59,8 +60,8 @@ public class ReadCensusExcelTest {
 	
 	@Test
 	public void testExcelAntiguoDatosCorrectos() throws Exception {
-		ReadCensus readCensus = new ReadCensusExcel();
-		List<Votante> votantes = readCensus.loadCenso("src/test/resources/censo_correcto.xls"); 
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_correcto.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
 		
 		//Comprobamos los datos del votante 1
 		Votante votante1 = votantes.get(0);
@@ -82,6 +83,18 @@ public class ReadCensusExcelTest {
 		assertTrue(votante3.getMail().equals("sergio@yomolomucho.es"));
 		assertTrue(votante3.getNif().equals("12321543P"));
 		assertTrue(votante3.getCodigoColegio().equals("54.0"));
+	}
+	
+	@Test
+	public void testExcelVelocidad() throws Exception{
+		
+		long inicio = System.currentTimeMillis();
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_velocidad.xlsx");
+		readCensus.loadCenso(); 
+		long fin = System.currentTimeMillis();
+		
+		assertTrue(1000 > fin - inicio);
+		
 	}
 
 }
