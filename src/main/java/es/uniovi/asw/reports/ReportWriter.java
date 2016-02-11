@@ -26,7 +26,7 @@ public class ReportWriter {
 		
 		Calendar hoy= Calendar.getInstance();
 			
-		int anyo=hoy.get(Calendar.YEAR) - 1900;
+		int anyo=hoy.get(Calendar.YEAR);
 		int mes = hoy.get(Calendar.MONTH)+1;
 		int dia= hoy.get(Calendar.DAY_OF_MONTH);
 		
@@ -34,8 +34,8 @@ public class ReportWriter {
 		int minuto= hoy.get(Calendar.MINUTE);
 		int segundo= hoy.get(Calendar.SECOND);
 		
-		String report="["+(anyo)+"/"+mes+"/"+dia+"::"+hora+":"+minuto+":"+segundo+ "]@"+ficheroExcelProcedencia+" votante con problemas:"+v.getNif()+" Razon: "+razon+"\n" ;
-		output.write(report);
+		String report="["+(anyo)+"/"+mes+"/"+dia+"::"+hora+":"+minuto+":"+segundo+ "] @ "+ficheroExcelProcedencia+" votante con problemas:"+v.getNif()+" Razon: "+razon+System.getProperty( "line.separator" );
+		output.append(report);
 		output.close();
 	}
 	
@@ -51,7 +51,7 @@ public class ReportWriter {
 		
 		Calendar hoy= Calendar.getInstance();
 			
-		int anyo=hoy.get(Calendar.YEAR) - 1900;
+		int anyo=hoy.get(Calendar.YEAR);
 		int mes = hoy.get(Calendar.MONTH)+1;
 		int dia= hoy.get(Calendar.DAY_OF_MONTH);
 		
@@ -59,8 +59,8 @@ public class ReportWriter {
 		int minuto= hoy.get(Calendar.MINUTE);
 		int segundo= hoy.get(Calendar.SECOND);
 		
-		String report="["+(anyo)+"/"+mes+"/"+dia+"::"+hora+":"+minuto+":"+segundo+ "] @ "+ficheroExcelProcedencia+" Problema debido a: "+razon +"\n";
-		output.write(report);
+		String report="["+(anyo)+"/"+mes+"/"+dia+"::"+hora+":"+minuto+":"+segundo+ "] @ "+ficheroExcelProcedencia+" Problema debido a: "+razon +System.getProperty( "line.separator" );
+		output.append(report);
 		output.close();
 	}
 
