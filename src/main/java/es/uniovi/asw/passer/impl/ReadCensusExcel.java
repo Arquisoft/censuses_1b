@@ -16,7 +16,7 @@ import es.uniovi.asw.passer.GeneradorCartas;
 import es.uniovi.asw.passer.GeneradorContraseñas;
 import es.uniovi.asw.passer.ReadCensus;
 
-public class ExcelParser implements ReadCensus {
+public class ReadCensusExcel implements ReadCensus {
 
 	@Override
 	public List<Votante> loadCenso(String rute) throws Exception {

@@ -36,7 +36,7 @@ public class Votante {
 		return codigoColegio;
 	}
 
-	public String getPass() {
+	public String getContraseña() {
 		return contraseña;
 	}
 	

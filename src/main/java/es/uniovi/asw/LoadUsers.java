@@ -2,7 +2,7 @@ package es.uniovi.asw;
 
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.ReadCensus;
-import es.uniovi.asw.passer.impl.ExcelParser;
+import es.uniovi.asw.passer.impl.ReadCensusExcel;
 
 /**
  * Main application
@@ -21,7 +21,7 @@ public class LoadUsers {
 	void run(String... args) {
 		try {
 			
-			ReadCensus parser = new ExcelParser();
+			ReadCensus parser = new ReadCensusExcel();
 			
 			for(Votante votante : parser.loadCenso("./censo.xlsx")){
 				System.out.println(votante);
