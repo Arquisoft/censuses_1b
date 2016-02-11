@@ -51,8 +51,8 @@ public class LoadUsers {
 				formatter.printHelp( "Censuses", options );
 			}
 			else if(line.hasOption("e")){
-				ReadCensus readExcel = new ReadCensusExcel();
-				List<Votante> votantes = readExcel.loadCenso(line.getOptionValue("e"));
+				ReadCensus readExcel = new ReadCensusExcel(line.getOptionValue("e"));
+				List<Votante> votantes = readExcel.loadCenso();
 				for(Votante votante : votantes){
 					System.out.println(votante);
 				}

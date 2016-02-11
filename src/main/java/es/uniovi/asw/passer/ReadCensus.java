@@ -6,6 +6,6 @@ import es.uniovi.asw.logica.Votante;
 
 public interface ReadCensus {
 
-	public List<Votante> loadCenso(String rute) throws Exception;
+	public List<Votante> loadCenso() throws Exception;
 	
 }

@@ -1,6 +1,8 @@
 package es.uniovi.asw.passer.impl;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,15 +17,26 @@ import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.GeneradorCartas;
 import es.uniovi.asw.passer.GeneradorContraseñas;
 import es.uniovi.asw.passer.ReadCensus;
+import es.uniovi.asw.reports.ReportWriter;
 
 public class ReadCensusExcel implements ReadCensus {
+	
+	InputStream archivo;
+	ReportWriter rW = new ReportWriter();
+	
+	public ReadCensusExcel(String ruta) throws IOException {
+		try {
+			archivo = new FileInputStream(ruta);
+		} catch (FileNotFoundException e) {
+			rW.WriteReport(ruta, "no se encuentra el archivo");
+		}
+	}
 
 	@Override
-	public List<Votante> loadCenso(String rute) throws Exception {
+	public List<Votante> loadCenso() throws Exception {
 		List<Votante> votantes = new ArrayList<Votante>(); 
 		
-		InputStream input = new FileInputStream(rute);
-		Workbook wb = WorkbookFactory.create(input);
+		Workbook wb = WorkbookFactory.create(archivo);
 		
 		org.apache.poi.ss.usermodel.Sheet sheet = wb.getSheetAt(0);
 		Iterator<Row> rows = sheet.iterator();
