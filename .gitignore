@@ -58,3 +58,7 @@ local.properties
 # Code Recommenders
 .recommenders/
 data/test.log
+
+*.pdf
+
+*.txt
