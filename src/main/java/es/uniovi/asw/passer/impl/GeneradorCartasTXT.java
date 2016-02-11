@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.GeneradorCartas;
 
-public class CartaTXT implements GeneradorCartas {
+public class GeneradorCartasTXT implements GeneradorCartas {
 
 	@Override
 	public void generarCarta(Votante v) throws FileNotFoundException {

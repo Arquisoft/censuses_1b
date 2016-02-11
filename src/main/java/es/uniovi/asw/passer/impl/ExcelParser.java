@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -14,10 +13,10 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.GeneradorCartas;
-import es.uniovi.asw.passer.GeneradorPass;
-import es.uniovi.asw.passer.Parser;
+import es.uniovi.asw.passer.GeneradorContraseñas;
+import es.uniovi.asw.passer.ReadCensus;
 
-public class ExcelParser implements Parser {
+public class ExcelParser implements ReadCensus {
 
 	@Override
 	public List<Votante> loadCenso(String rute) throws Exception {
@@ -49,9 +48,11 @@ public class ExcelParser implements Parser {
 						datosVotante.get(1),
 						datosVotante.get(2),
 						datosVotante.get(3));
-				GeneradorPass gp= new HashedGenerator();
-				GeneradorCartas gc= new CartaTXT();
-				v.setPass(gp.generar(v));
+				
+				GeneradorContraseñas gp= new HashedGenerator();
+				GeneradorCartas gc= new GeneradorCartasTXT();
+				
+				v.setContraseña(gp.generar(v));
 				votantes.add(v);
 				gc.generarCarta(v);
 			}
