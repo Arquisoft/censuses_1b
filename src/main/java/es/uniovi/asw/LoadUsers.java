@@ -56,7 +56,7 @@ public class LoadUsers {
 				formatter.printHelp( "Censuses", options );
 			}
 			else if(line.hasOption("e")){
-				System.out.println("Cargando datos del censo");
+				System.out.println("Cargando datos del censo.");
 				ReadCensus readExcel = null;
 				String ruta = line.getOptionValue("e");
 				if(line.hasOption("c")){
@@ -70,8 +70,12 @@ public class LoadUsers {
 				else{
 					readExcel = new ReadCensusExcel(ruta);
 				}
-				readExcel.loadCenso();
-				System.out.println("Censo cargado con exito");
+				if(readExcel.loadCenso() != null){
+					System.out.println("Censo cargado con exito.");
+				}
+				else{
+					System.out.println("Ha habiado un problema al cargar el censo, consulte el log.");
+				}
 			}
 						
 		} catch (Exception e) {

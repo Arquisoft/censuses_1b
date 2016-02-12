@@ -42,42 +42,53 @@ public class ReadCensusExcel implements ReadCensus {
 	public List<Votante> loadCenso() throws Exception {
 		List<Votante> votantes = new ArrayList<Votante>(); 
 		
-		Workbook wb = WorkbookFactory.create(archivo);
-		
-		org.apache.poi.ss.usermodel.Sheet sheet = wb.getSheetAt(0);
-		Iterator<Row> rows = sheet.iterator();
-		
-		//Quitamos la primera fila que contiene los nombres de las columnas
-		if(rows.hasNext()) rows.next(); 
-		
-		//Procesamos el documento
-		while(rows.hasNext()){
+		if(archivo != null){
 			
-			Row row = (Row) rows.next();
-			Iterator<Cell> cells = row.cellIterator();
-			List<String> datosVotante = new ArrayList<String>();
+			Workbook wb = WorkbookFactory.create(archivo);
 			
-			while(cells.hasNext()){
-				Cell cell = (Cell) cells.next();
-				datosVotante.add(cell.toString());
+			org.apache.poi.ss.usermodel.Sheet sheet = wb.getSheetAt(0);
+			Iterator<Row> rows = sheet.iterator();
+			
+			//Quitamos la primera fila que contiene los nombres de las columnas
+			if(rows.hasNext()) rows.next(); 
+			
+			//Procesamos el documento
+			while(rows.hasNext()){
+				
+				Row row = (Row) rows.next();
+				Iterator<Cell> cells = row.cellIterator();
+				List<String> datosVotante = new ArrayList<String>();
+				
+				while(cells.hasNext()){
+					Cell cell = (Cell) cells.next();
+					datosVotante.add(cell.toString());
+				}
+				
+				if(datosVotante.size() == 4){
+					Votante v=new Votante(datosVotante.get(0),
+							datosVotante.get(1),
+							datosVotante.get(2),
+							datosVotante.get(3));
+					
+					GeneradorContraseñas gp= new HashedGenerator();
+					
+					v.setContraseña(gp.generar(v));
+					votantes.add(v);
+					generadorCartas.generarCarta(v);
+				}
+				
 			}
 			
-			if(datosVotante.size() == 4){
-				Votante v=new Votante(datosVotante.get(0),
-						datosVotante.get(1),
-						datosVotante.get(2),
-						datosVotante.get(3));
-				
-				GeneradorContraseñas gp= new HashedGenerator();
-				
-				v.setContraseña(gp.generar(v));
-				votantes.add(v);
-				generadorCartas.generarCarta(v);
-			}
+			return votantes;
+			
+		}
+		else{
+			
+			return null;
 			
 		}
 		
-		return votantes;
+		
 	}
 
 }

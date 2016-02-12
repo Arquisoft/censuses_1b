@@ -1,21 +1,17 @@
 package es.uniovi.asw;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import es.uniovi.asw.logica.Votante;
-import es.uniovi.asw.passer.ReadCensus;
-import es.uniovi.asw.passer.impl.ReadCensusExcel;
 import es.uniovi.asw.reports.ReportWriter;
 
 public class ReportWritterTest {
