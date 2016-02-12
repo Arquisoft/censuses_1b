@@ -38,7 +38,7 @@ public class ReportWriter {
 		output.append(report);
 		output.close();
 	}
-	
+	//git arreglate por favor
 	public void WriteReport(String ficheroExcelProcedencia,String razon) throws IOException{
 		if(ficheroExcelProcedencia==null || razon==null){
 			throw new IllegalArgumentException("Parametros no pueden ser null");
