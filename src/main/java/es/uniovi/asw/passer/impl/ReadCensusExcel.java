@@ -23,10 +23,16 @@ public class ReadCensusExcel implements ReadCensus {
 	
 	InputStream archivo;
 	ReportWriter rW = new ReportWriter();
+	GeneradorCartas generadorCartas;
 	
 	public ReadCensusExcel(String ruta) throws IOException {
+		this(ruta, new GeneradorCartasTXT());
+	}
+
+	public ReadCensusExcel(String ruta, GeneradorCartas generadorCartas) throws IOException {
 		try {
 			archivo = new FileInputStream(ruta);
+			this.generadorCartas = generadorCartas;
 		} catch (FileNotFoundException e) {
 			rW.WriteReport(ruta, "no se encuentra el archivo");
 		}
@@ -63,18 +69,10 @@ public class ReadCensusExcel implements ReadCensus {
 						datosVotante.get(3));
 				
 				GeneradorContraseñas gp= new HashedGenerator();
-				GeneradorCartas gc= new GeneradorCartasTXT();
 				
 				v.setContraseña(gp.generar(v));
 				votantes.add(v);
-				gc.generarCarta(v);
-			}
-			else{
-				System.err.println("Algo ha ido mal con estos datos: ");
-				for(String dato : datosVotante){
-					System.err.print(dato);
-				}
-				System.err.println();
+				generadorCartas.generarCarta(v);
 			}
 			
 		}

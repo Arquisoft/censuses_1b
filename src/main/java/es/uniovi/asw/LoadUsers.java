@@ -1,7 +1,5 @@
 package es.uniovi.asw;
 
-import java.util.List;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -9,8 +7,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
-import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.ReadCensus;
+import es.uniovi.asw.passer.impl.GeneradorCartasPDF;
 import es.uniovi.asw.passer.impl.ReadCensusExcel;
 
 /**
@@ -34,14 +32,21 @@ public class LoadUsers {
 		Options options = new Options();
 		Option help = new Option("help", "muestra la ayuda de la aplicación.");
 		Option excel = Option.builder("e")
-							 .argName("file")
 							 .hasArg()
+							 .argName("archivo")
 							 .desc("indica que el tipo de documento"
 									+ " de entrada es un libro Excel.")
 							 .build();
+		Option tipoCarta = Option.builder("c")
+								 .hasArg()
+								 .argName("tipo")
+								 .desc("selecciona el formato de las cartas"
+								 		+ "que se generan")
+								 .build();
 		
 		options.addOption(help);
-		options.addOption(excel);		
+		options.addOption(excel);	
+		options.addOption(tipoCarta);
 		
 		try {
 			CommandLine line = cmd.parse(options, args);
@@ -51,11 +56,22 @@ public class LoadUsers {
 				formatter.printHelp( "Censuses", options );
 			}
 			else if(line.hasOption("e")){
-				ReadCensus readExcel = new ReadCensusExcel(line.getOptionValue("e"));
-				List<Votante> votantes = readExcel.loadCenso();
-				for(Votante votante : votantes){
-					System.out.println(votante);
+				System.out.println("Cargando datos del censo");
+				ReadCensus readExcel = null;
+				String ruta = line.getOptionValue("e");
+				if(line.hasOption("c")){
+					if(line.getOptionValue("c").toLowerCase().equals("pdf")){
+						readExcel = new ReadCensusExcel(ruta, new GeneradorCartasPDF());
+					}
+					else{
+						readExcel = new ReadCensusExcel(ruta);
+					}
 				}
+				else{
+					readExcel = new ReadCensusExcel(ruta);
+				}
+				readExcel.loadCenso();
+				System.out.println("Censo cargado con exito");
 			}
 						
 		} catch (Exception e) {
