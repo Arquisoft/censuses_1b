@@ -3,8 +3,10 @@ package es.uniovi.asw;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Test;
 
 import es.uniovi.asw.logica.Votante;
@@ -12,6 +14,23 @@ import es.uniovi.asw.passer.ReadCensus;
 import es.uniovi.asw.passer.impl.ReadCensusExcel;
 
 public class ReadCensusExcelTest {
+	
+	@After
+	public void setUp() throws Exception {
+		
+		//Borro las cartas generadas previamente antes de los test
+		File archivos[] = new File(".").listFiles();
+		for (File archivo : archivos) {
+			
+			String nombre = archivo.getName();
+		    if ((nombre.endsWith(".txt") || nombre.endsWith(".pdf")) &&
+		    		(!nombre.equals("PLAYGROUND.txt") && !nombre.equals("Script_BD.txt"))) {	
+		    	archivo.delete();
+		    }
+		    
+		}
+		
+	}
 
 	@Test
 	public void testExcelModernoNumeroVotantes() throws Exception {
@@ -94,6 +113,16 @@ public class ReadCensusExcelTest {
 		long fin = System.currentTimeMillis();
 		
 		assertTrue(1000 > fin - inicio);
+		
+	}
+	
+	@Test
+	public void testExcelCensoIncompleto() throws Exception{
+		
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_incorrecto.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
+		
+		assertEquals(votantes.size(), 0);
 		
 	}
 

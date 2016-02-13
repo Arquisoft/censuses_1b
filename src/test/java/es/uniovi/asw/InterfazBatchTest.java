@@ -19,7 +19,6 @@ public class InterfazBatchTest {
 			String nombre = archivo.getName();
 		    if ((nombre.endsWith(".txt") || nombre.endsWith(".pdf")) &&
 		    		(!nombre.equals("PLAYGROUND.txt") && !nombre.equals("Script_BD.txt"))) {	
-		    	System.out.println(archivo.getCanonicalPath());
 		    	archivo.delete();
 		    }
 		    
