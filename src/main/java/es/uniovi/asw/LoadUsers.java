@@ -1,11 +1,14 @@
 package es.uniovi.asw;
 
+import java.io.IOException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
+import org.apache.commons.cli.UnrecognizedOptionException;
 
 import es.uniovi.asw.passer.ReadCensus;
 import es.uniovi.asw.passer.impl.GeneradorCartasPDF;
@@ -29,24 +32,7 @@ public class LoadUsers {
 		
 		CommandLineParser cmd = new DefaultParser();
 		
-		Options options = new Options();
-		Option help = new Option("help", "muestra la ayuda de la aplicación.");
-		Option excel = Option.builder("e")
-							 .hasArg()
-							 .argName("archivo")
-							 .desc("indica que el tipo de documento"
-									+ " de entrada es un libro Excel.")
-							 .build();
-		Option tipoCarta = Option.builder("c")
-								 .hasArg()
-								 .argName("tipo")
-								 .desc("selecciona el formato de las cartas"
-								 		+ "que se generan")
-								 .build();
-		
-		options.addOption(help);
-		options.addOption(excel);	
-		options.addOption(tipoCarta);
+		Options options = createOptions();
 		
 		try {
 			CommandLine line = cmd.parse(options, args);
@@ -56,6 +42,7 @@ public class LoadUsers {
 				formatter.printHelp( "Censuses", options );
 			}
 			else if(line.hasOption("e")){
+				
 				System.out.println("Cargando datos del censo.");
 				ReadCensus readExcel = null;
 				String ruta = line.getOptionValue("e");
@@ -77,13 +64,44 @@ public class LoadUsers {
 					System.out.println("Ha habiado un problema al cargar el censo, consulte el log.");
 				}
 			}
+			else if(line.getOptions().length == 0){
+				System.out.println("Utiliza -help para ver la ayuda.");
+			}
 						
+			
+		} catch (UnrecognizedOptionException e) {
+			System.out.println("No se reconoce esa entrada, utliza -help para ver la ayuda.");
+		} catch (IOException e) {
+			System.out.println("Se ha producido un error al escribir el log.");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 
 		
 		
+	}
+	
+	Options createOptions(){
+		
+		Options options = new Options();
+		Option help = new Option("help", "muestra la ayuda de la aplicación.");
+		Option excel = Option.builder("e")
+							 .hasArg()
+							 .argName("archivo")
+							 .desc("indica que el tipo de documento"
+									+ " de entrada es un libro Excel.")
+							 .build();
+		Option tipoCarta = Option.builder("c")
+								 .hasArg()
+								 .argName("tipo")
+								 .desc("selecciona el formato de las cartas"
+								 		+ "que se generan")
+								 .build();
+		
+		options.addOption(help);
+		options.addOption(excel);	
+		options.addOption(tipoCarta);
+		
+		return options;
 	}
 }
