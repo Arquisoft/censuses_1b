@@ -14,7 +14,7 @@ public class Comprobaciones {
 	}
 	
 	private static boolean isStringVacio(String texto){
-		return texto.trim().length() == 0;
+		return texto != null && texto.trim().length() == 0;
 	}
 
 }
