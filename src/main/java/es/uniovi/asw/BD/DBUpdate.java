@@ -51,7 +51,7 @@ public class DBUpdate {
 
 	public void insert(Votante v){
 		conectar();
-		String insertar="insert into ordentrabajo values (?,?,?,?,?)";
+		String insertar="insert into usuarios(name, email, nif, censusesInfo, pass) values (?,?,?,?,?)";
 		PreparedStatement insercion = null;
 		try {
 			
