@@ -1,3 +1,9 @@
 language: java
 jdk:
 - oraclejdk8
+notifications:
+  email:
+    recipients:
+      - uo237040@uniovi.es
+    on_success: never
+    on_failure: always
