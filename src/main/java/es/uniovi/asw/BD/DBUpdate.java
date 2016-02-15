@@ -28,7 +28,7 @@ public class DBUpdate {
 	 */
 	public void conectar () {
 		try {
-			Class.forName("DRIVER");
+			Class.forName("org.hsqldb.jdbcDriver");
 			} catch (ClassNotFoundException e){
 				throw new RuntimeException("No se ha podido cargar el driver!", e);
 				}
