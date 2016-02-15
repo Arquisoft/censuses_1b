@@ -1,6 +1,7 @@
 package es.uniovi.asw;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -10,6 +11,8 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
+import es.uniovi.asw.BD.DBUpdate;
+import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.ReadCensus;
 import es.uniovi.asw.passer.impl.GeneradorCartasPDF;
 import es.uniovi.asw.passer.impl.ReadCensusExcel;
@@ -57,8 +60,13 @@ public class LoadUsers {
 				else{
 					readExcel = new ReadCensusExcel(ruta);
 				}
-				if(readExcel.loadCenso() != null){
+				List<Votante> votantes=readExcel.loadCenso();
+				if( votantes != null){
 					System.out.println("Censo cargado con exito.");
+					DBUpdate db= new DBUpdate();
+					for(Votante v: votantes){
+						db.insert(v);
+					}
 				}
 				else{
 					System.out.println("Ha habiado un problema al cargar el censo, consulte el log.");
