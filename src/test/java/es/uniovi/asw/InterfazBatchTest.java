@@ -1,8 +1,10 @@
 package es.uniovi.asw;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 
 import org.junit.After;
 import org.junit.Before;
@@ -69,6 +71,47 @@ public class InterfazBatchTest {
 		File log = new File("report.log");
 		assertTrue(log.exists());
 		
+	}
+	
+	@Test
+	public void testAyuda(){
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		
+		LoadUsers.main(new String[]{"-help"});
+		
+		String salida = outContent.toString();
+		assertTrue(salida.contains("usage: Censuses"));
+		assertTrue(salida.contains("-e"));
+		assertTrue(salida.contains("-c"));
+		assertTrue(salida.contains("-help"));
+
+	}
+	
+	@Test
+	public void testSinPasarNada(){
+		
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		
+		LoadUsers.main(new String[]{""});
+		
+		String salida = outContent.toString();
+		assertTrue(salida.contains("Utiliza -help para ver la ayuda."));
+
+	}
+	
+	@Test
+	public void testSinOpcionCorrecta(){
+		
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(outContent));
+		
+		LoadUsers.main(new String[]{"-p"});
+		
+		String salida = outContent.toString();
+		assertTrue(salida.contains("No se reconoce esa entrada, utliza -help para ver la ayuda."));
+
 	}
 
 }
