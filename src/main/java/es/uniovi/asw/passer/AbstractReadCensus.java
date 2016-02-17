@@ -2,6 +2,7 @@ package es.uniovi.asw.passer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.itextpdf.text.DocumentException;
@@ -10,6 +11,7 @@ import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.impl.GeneradorCartasTXT;
 import es.uniovi.asw.passer.impl.HashedGenerator;
 import es.uniovi.asw.reports.ReportWriter;
+import es.uniovi.asw.util.Comprobaciones;
 
 public abstract class AbstractReadCensus implements ReadCensus{
 	
@@ -39,10 +41,14 @@ public abstract class AbstractReadCensus implements ReadCensus{
 		
 		if(archivo.exists()){
 			
-			List<Votante> votantes = parserArchivo(archivo);
-			for(Votante votante : votantes){
+			List<Votante> votantesLeidos = parserArchivo(archivo);
+			List<Votante> votantes = new ArrayList<Votante>();
+			for(Votante votante : votantesLeidos){
 				votante.setContraseña(generadorContraseñas.generar(votante));
-				generadorCartas.generarCarta(votante);
+				if(Comprobaciones.isVotanteCorreto(votante)){
+					generadorCartas.generarCarta(votante);
+					votantes.add(votante);
+				}
 			}
 			return votantes;
 			

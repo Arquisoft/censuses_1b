@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.passer.AbstractReadCensus;
 import es.uniovi.asw.passer.GeneradorCartas;
-import es.uniovi.asw.util.Comprobaciones;
 
 public class ReadCensusExcel extends AbstractReadCensus {
 
@@ -60,12 +59,12 @@ public class ReadCensusExcel extends AbstractReadCensus {
 				}
 				
 				if(datosVotante.size() == 4){
-					Votante v=new Votante(datosVotante.get(0),
+					Votante v = new Votante(datosVotante.get(0),
 							datosVotante.get(1),
 							datosVotante.get(2),
 							datosVotante.get(3));
-					
-					if(Comprobaciones.isVotanteCorreto(v)) votantes.add(v);
+										
+					votantes.add(v);
 				}
 				else{
 					rW.WriteReport(ruta, "[Fila " + fila + "] Faltan datos del usuario.");
