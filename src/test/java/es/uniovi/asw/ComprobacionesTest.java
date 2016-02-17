@@ -42,6 +42,7 @@ public class ComprobacionesTest {
 		v.setContraseña(new HashedGenerator().generar(v));
 		
 		assertTrue(v.getMail().equals(""));
+		assertTrue(v.getUser().equals(""));
 		assertEquals(false, Comprobaciones.isVotanteCorreto(v));
 	}
 	
