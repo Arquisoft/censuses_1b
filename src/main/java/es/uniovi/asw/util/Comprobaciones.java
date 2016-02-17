@@ -5,6 +5,7 @@ import es.uniovi.asw.logica.Votante;
 public class Comprobaciones {
 	
 	public static boolean isVotanteCorreto(Votante votante){
+		
 		return (!isStringVacio(votante.getNombre()) &&
 				!isStringVacio(votante.getCodigoColegio()) &&
 				!isStringVacio(votante.getContraseña()) &&
@@ -14,7 +15,7 @@ public class Comprobaciones {
 	}
 	
 	private static boolean isStringVacio(String texto){
-		return texto != null && texto.trim().length() == 0;
+		return (texto != null && texto.trim().length() == 0) || texto == null;
 	}
 
 }
