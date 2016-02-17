@@ -7,6 +7,7 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import es.uniovi.asw.logica.Votante;
@@ -30,6 +31,11 @@ public class ReadCensusExcelTest {
 		    
 		}
 		
+	}
+	
+	@Before
+	public void borrarLog(){
+		new File("report.log").delete();
 	}
 
 	@Test
@@ -123,6 +129,18 @@ public class ReadCensusExcelTest {
 		List<Votante> votantes = readCensus.loadCenso(); 
 		
 		assertEquals(votantes.size(), 0);
+		
+	}
+	
+	@Test
+	public void testExcelCensoEncriptado() throws Exception{
+		
+		assertTrue(!new File("report.log").exists());
+		
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_encriptado.xlsx");
+		readCensus.loadCenso(); 
+		
+		assertTrue(new File("report.log").exists());
 		
 	}
 

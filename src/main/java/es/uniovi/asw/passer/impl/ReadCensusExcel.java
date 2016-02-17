@@ -74,10 +74,8 @@ public class ReadCensusExcel extends AbstractReadCensus {
 				
 			}
 			
-		} catch (EncryptedDocumentException e) {
-			rW.WriteReport(ruta, "El archivo excel esta encriptado.");
-		} catch (InvalidFormatException e) {
-			rW.WriteReport(ruta, "El archivo no tiene un formato excel correcto.");
+		} catch (EncryptedDocumentException | InvalidFormatException e) {
+			rW.WriteReport(ruta, "Ha ocurrido un problema al leer el fichero excel.");
 		} 
 		
 		return votantes;
