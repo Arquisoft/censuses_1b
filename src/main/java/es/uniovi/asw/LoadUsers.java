@@ -1,6 +1,5 @@
 package es.uniovi.asw;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
@@ -79,8 +78,6 @@ public class LoadUsers {
 			
 		} catch (UnrecognizedOptionException e) {
 			System.out.println("No se reconoce esa entrada, utliza -help para ver la ayuda.");
-		} catch (IOException e) {
-			System.out.println("Se ha producido un error al escribir el log.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
