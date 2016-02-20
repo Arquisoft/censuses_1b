@@ -34,13 +34,13 @@ public class DBTest {
 	@Test
 	public void testInsertarVariosVotantes() {
 		Votante votante1 = new Votante("Nombre1", "nombre1@mail.com", "00000000P", "123xx");
-		Votante votante2 = new Votante("Nombre2", "nombre2@mail.com", "00000000P", "ppsxx");
+		Votante votante2 = new Votante("Nombre2", "nombre2@mail.com", "99999999C", "ppsxx");
 		db.insert(votante1);
 		db.insert(votante2);
-	//	assertTrue(db.exists(votante1));
-	//	assertTrue(db.exists(votante2));
-	//	db.delete(votante1);
-	//	db.delete(votante2);
+		assertTrue(db.exists(votante1));
+		assertTrue(db.exists(votante2));
+		db.delete(votante1);
+		db.delete(votante2);
 	}
 	
 	@Test(expected=NullPointerException.class)

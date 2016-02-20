@@ -63,9 +63,11 @@ public class LoadUsers {
 				if( votantes != null){
 					System.out.println("Censo cargado con exito.");
 					DBUpdate db= new DBUpdate();
+					db.conectar();
 					for(Votante v: votantes){
 						db.insert(v);
 					}
+					db.desconectar();
 				}
 				else{
 					System.out.println("Ha habiado un problema al cargar el censo, consulte el log.");
