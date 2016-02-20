@@ -28,14 +28,14 @@ public class DBUpdate {
 	 */
 	public void conectar () {
 		try {
-			Class.forName("org.hsqldb.jdbcDriver");
+			Class.forName(DRIVER);
 			} catch (ClassNotFoundException e){
-				throw new RuntimeException("No se ha podido cargar el driver!", e);
+				throw new RuntimeException("No se ha podido cargar el driver.", e);
 				}
 		try {
 			con = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
-			throw new RuntimeException("No se ha podido establecer la conexión!", e);
+			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
 	}
 
@@ -50,21 +50,17 @@ public class DBUpdate {
 	}
 
 	public void insert(Votante v){
-		conectar();
+		//conectar();
 		String insertar="insert into usuarios(name, email, nif, censusesInfo, pass) values (?,?,?,?,?)";
 		PreparedStatement insercion = null;
-		try {
-			
+		try {			
 		insercion= con.prepareStatement(insertar);
 		insercion.setString(1, v.getNombre());
 		insercion.setString(2,v.getMail() );
 		insercion.setString(3,v.getNif());
 		insercion.setString(4, v.getCodigoColegio());
 		insercion.setString(5, v.getContraseña());
-		insercion.executeUpdate();
-		
-		
-		
+		insercion.executeUpdate();			
 	} catch (SQLException e) {
 		ReportWriter r = new ReportWriter();
 		if(e.getSQLState().equals("08001")){
@@ -77,7 +73,7 @@ public class DBUpdate {
 		}
 		else if(e.getSQLState().equals("23505")){
 			try {
-				r.WriteReport("Ya existe el registro en la base de datos");
+				r.WriteReport("Ya existe el registro en la base de datos.");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -95,8 +91,75 @@ public class DBUpdate {
 		}
 		
 	}
+		finally {
+			try {
+				insercion.close();
+			} catch (SQLException e) {
+				ReportWriter rw = new ReportWriter();
+				try {
+					rw.WriteReport("Error desconocido en la BD "+e.getMessage());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
 	
 		
+	}
+	
+	public int  delete (Votante v) {		
+		int n = 0;
+		String sentencia = "delete from usuarios where nif = ?";
+		PreparedStatement ps = null;
+			try {
+				ps = con.prepareStatement(sentencia);
+				ps.setString(1, v.getNif());
+				n = ps.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+
+		finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+			}
+			return n;
+		
+	}
+	
+	public boolean exists (Votante v) {		
+		String sentencia = "select * from usuarios where nif = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(sentencia);
+				ps.setString(1, v.getNif());
+				rs = ps.executeQuery();
+				if (rs.next())
+					return true;
+				else
+					return false;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+
+		finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				}
+			}
+			return false;		
 	}
 
 }

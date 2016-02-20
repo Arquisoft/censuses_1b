@@ -63,7 +63,6 @@ public class ReportWritterTest {
 		assertTrue(linea.contains("origen"));
 		lector.close();
 		
-		
 	}
 	
 	@Test
