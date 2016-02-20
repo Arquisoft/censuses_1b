@@ -218,6 +218,17 @@
 			<timezone>2</timezone>
 			<properties />
 		</developer>
+		<developer>
+			<id>garciavazquez</id>
+			<name>Xurxo García Vázquez</name>
+			<email>uo235241@uniovi.es</email>
+			<roles>
+				<role>Project Admin</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
 	</developers>
 
 
