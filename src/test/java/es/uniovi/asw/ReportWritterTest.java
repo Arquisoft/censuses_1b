@@ -34,6 +34,23 @@ public class ReportWritterTest {
 		Votante v=null;
 		r.WriteReport(v, "noExiste", "SinRazon");
 	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testFicheroExcelNull() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
+		r.WriteReport(v, null, "");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonNull() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
+		r.WriteReport(v, "noExiste", null);
+	}
+	
 	@Test(expected = IllegalArgumentException.class) 
 	public void testRazonVacia() throws Exception {
 		//comprobar que no se puede pasar info incorrecta
@@ -48,7 +65,48 @@ public class ReportWritterTest {
 		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
 		r.WriteReport(v, "", "Razon falsa");
 	}
+
 	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testFicheroExcelNullSinVotante() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport(null, "razon falsa");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonNullSinVotante() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport("noExiste", null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonVaciaSinVotante() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport("noExiste", "");
+	}
+	@Test(expected = IllegalArgumentException.class) 
+	public void testFicheroVacioSinVotante() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport("", "Razon falsa");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonVaciaSinVotanteNiFichero() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport("");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonNullSinVotanteNiFichero() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport(null);
+	}
 	
 	@Test
 	public void testGuardaUnaLineaEnElFichero() throws Exception {
