@@ -143,5 +143,15 @@ public class ReadCensusExcelTest {
 		assertTrue(new File("report.log").exists());
 		
 	}
+	
+	@Test
+	public void testExcelVacio() throws Exception{
+				
+		ReadCensus readCensus = new ReadCensusExcel("src/test/resources/censo_vacio.xlsx");
+		List<Votante> votantes = readCensus.loadCenso(); 
+		
+		assertEquals(votantes.size(), 0);
+		
+	}
 
 }
