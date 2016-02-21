@@ -36,7 +36,7 @@ public class DBUpdate {
 		conectar_mysql();
 		//		}
 
-		System.err.println("TRAVIS: " + System.getProperty("TRAVIS"));
+		System.err.println("TRAVIS: " + System.getenv().get("TRAVIS"));
 	}
 
 	/**
@@ -51,7 +51,6 @@ public class DBUpdate {
 		try {
 			con = DriverManager.getConnection(URL, USER, PASS);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
 	}
