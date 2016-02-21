@@ -29,12 +29,12 @@ public class DBUpdate {
 	private static Connection con;
 	
 	public void conectar () {
-		if(System.getProperty("test_local") == null){
-			conectar_hsqldb();
-		}
-		else{
+//		if(System.getProperty("test_local") != null){
+//			conectar_hsqldb();
+//		}
+//		else{
 			conectar_mysql();
-		}
+//		}
 	}
 	
 	/**
