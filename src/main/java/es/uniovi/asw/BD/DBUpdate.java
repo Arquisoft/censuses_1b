@@ -29,12 +29,14 @@ public class DBUpdate {
 	private static Connection con;
 	
 	public void conectar () {
-//		if(System.getProperty("test_local") != null){
+//		if(System.getProperty("TRAVIS") != null){
 //			conectar_hsqldb();
 //		}
 //		else{
 			conectar_mysql();
 //		}
+			
+			System.out.println(System.getProperty("TRAVIS"));
 	}
 	
 	/**
@@ -47,7 +49,7 @@ public class DBUpdate {
 				throw new RuntimeException("No se ha podido cargar el driver.", e);
 				}
 		try {
-			if(con != null){
+			if(con == null){
 				con = DriverManager.getConnection(URL, USER, PASS);
 			}
 		} catch (SQLException e) {
@@ -65,7 +67,7 @@ public class DBUpdate {
 				throw new RuntimeException("No se ha podido cargar el driver.", e);
 				}
 		try {
-			if(con != null){
+			if(con == null){
 				con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
 				
 				//Creamos la tabla
