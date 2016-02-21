@@ -16,61 +16,38 @@ import es.uniovi.asw.reports.ReportWriter;
  */
 public class DBUpdate {
 
-	private static String DRIVER = "org.hsqldb.jdbcDriver";
-	private static String URL = "jdbc:hsqldb:hsql://localhost";
-	private static String USER = "sa";
-	private static String PASS = "";
+	private static String DRIVER_HSQLDB = "org.hsqldb.jdbcDriver";
+	private static String URL_HSQLDB = "jdbc:hsqldb:hsql://localhost";
+	private static String USER_HSQLDB = "sa";
+	private static String PASS_HSQLDB = "";
 
-	private static String DRIVER_TEST = "com.mysql.jdbc.Driver";
-	private static String URL_TEST = "jdbc:mysql://127.0.0.1/censuses_1b";
-	private static String USER_TEST = "travis";
-	private static String PASS_TEST = "";
+	private static String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
+	private static String URL_MYSQL = "jdbc:mysql://127.0.0.1/censuses_1b";
+	private static String USER_MYSQL = "travis";
+	private static String PASS_MYSQL = "";
 
 	private static Connection con;
 
 	public void conectar () {
 		if(System.getenv().get("TRAVIS") == null){
-			conectar_hsqldb();
+			conectarse(DRIVER_HSQLDB, URL_HSQLDB, USER_HSQLDB, PASS_HSQLDB);
 		}
 		else{
-			conectar_mysql();
+			conectarse(DRIVER_MYSQL, URL_MYSQL, USER_MYSQL, PASS_MYSQL);
 		}
 	}
 
 	/**
-	 * Método para establecer una conexión con la BD(hsqldb)
+	 * Método para establecer una conexión con la BD
 	 */
-	public void conectar_hsqldb () {
+	protected void conectarse(String driver, String url, String user, String pass) {
 		try {
-			Class.forName(DRIVER);
+			Class.forName(driver);
 		} catch (ClassNotFoundException e){
 			throw new RuntimeException("No se ha podido cargar el driver.", e);
 		}
 		try {
-			con = DriverManager.getConnection(URL, USER, PASS);
-		} catch (SQLException e) {
-			throw new RuntimeException("No se ha podido establecer la conexión.", e);
-		}		
-	}
-
-	/**
-	 * Método para establecer una conexión con la BD(mysql)
-	 */
-	public void conectar_mysql () {
-		try {
-			Class.forName(DRIVER_TEST);
-		} catch (ClassNotFoundException e){
-			throw new RuntimeException("No se ha podido cargar el driver.", e);
-		}
-		try {
-			con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
-			
-			//Creamos la tabla
-			con.prepareStatement("CREATE TABLE IF NOT EXISTS USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
-					+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo"
-					+ " varchar(20), pass varchar(256) );").executeUpdate();
-
-
+			con = DriverManager.getConnection(url, user, pass);
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
