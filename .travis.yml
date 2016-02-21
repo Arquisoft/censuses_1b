@@ -8,7 +8,7 @@ notifications:
       - uo237085@uniovi.es
       - uo235241@uniovi.es
     on_success: never
-    on_failure: never
+    on_failure: always
 before_install:
   - pip install --user codecov
 after_success:
