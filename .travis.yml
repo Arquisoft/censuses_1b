@@ -8,12 +8,12 @@ notifications:
       - uo237085@uniovi.es
       - uo235241@uniovi.es
     on_success: never
-    on_failure: always
+    on_failure: never
 before_install:
   - pip install --user codecov
 after_success:
   - codecov
 services:
   - mysql
-env:
-  - test_local=no
+before_script:
+  - mysql -e 'create database censuses_1b;'
