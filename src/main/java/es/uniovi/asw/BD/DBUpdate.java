@@ -29,14 +29,12 @@ public class DBUpdate {
 	private static Connection con;
 
 	public void conectar () {
-		//		if(System.getProperty("TRAVIS") != null){
-		//			conectar_hsqldb();
-		//		}
-		//		else{
-		conectar_mysql();
-		//		}
-
-		System.err.println("TRAVIS: " + System.getenv().get("TRAVIS"));
+		if(System.getenv().get("TRAVIS") == null){
+			conectar_hsqldb();
+		}
+		else{
+			conectar_mysql();
+		}
 	}
 
 	/**
@@ -66,9 +64,7 @@ public class DBUpdate {
 		}
 		try {
 			con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
-
-			//Borramos la tabla
-			//con.prepareStatement("DROP TABLE IF EXISTS USUARIOS;").executeUpdate();
+			
 			//Creamos la tabla
 			con.prepareStatement("CREATE TABLE IF NOT EXISTS USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
 					+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo"
@@ -92,7 +88,7 @@ public class DBUpdate {
 
 	public void insert(Votante v){
 		//conectar();
-		String insertar="insert into usuarios(name, email, nif, censusesInfo, pass) values (?,?,?,?,?)";
+		String insertar="insert into USUARIOS(name, email, nif, censusesInfo, pass) values (?,?,?,?,?)";
 		PreparedStatement insercion = null;
 		try {			
 			insercion= con.prepareStatement(insertar);
@@ -151,7 +147,7 @@ public class DBUpdate {
 
 	public int  delete (Votante v) {		
 		int n = 0;
-		String sentencia = "delete from usuarios where nif = ?";
+		String sentencia = "delete from USUARIOS where nif = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(sentencia);
@@ -175,7 +171,7 @@ public class DBUpdate {
 	}
 
 	public boolean exists (Votante v) {		
-		String sentencia = "select * from usuarios where nif = ?";
+		String sentencia = "select * from USUARIOS where nif = ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
