@@ -17,7 +17,7 @@ services:
   - mysql
 before_script:
   - mysql -e 'create database censuses_1b;'
-  - mysql -e 'use censuses_1b'
+  - mysql -e 'use censuses_1b;'
   - mysql -e 'CREATE TABLE USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo varchar(20), pass varchar(256) );'
 env:
   - test_local=no
