@@ -80,8 +80,12 @@ public class LoadUsers {
 			
 		} catch (UnrecognizedOptionException e) {
 			System.out.println("No se reconoce esa entrada, utliza -help para ver la ayuda.");
+		} catch (Exception e) {
+			e.printStackTrace();
 		} 
 
+		
+		
 	}
 	
 	Options createOptions(){
