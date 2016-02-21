@@ -68,9 +68,9 @@ public class DBUpdate {
 			con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
 
 			//Borramos la tabla
-			con.prepareStatement("DROP TABLE IF EXISTS USUARIOS;").executeUpdate();
+			//con.prepareStatement("DROP TABLE IF EXISTS USUARIOS;").executeUpdate();
 			//Creamos la tabla
-			con.prepareStatement("CREATE TABLE USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
+			con.prepareStatement("CREATE TABLE IF NOT EXISTS USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
 					+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo"
 					+ " varchar(20), pass varchar(256) );").executeUpdate();
 
