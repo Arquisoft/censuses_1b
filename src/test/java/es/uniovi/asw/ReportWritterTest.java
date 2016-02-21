@@ -94,6 +94,19 @@ public class ReportWritterTest {
 		r.WriteReport("", "Razon falsa");
 	}
 	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonVaciaSinVotanteNiFichero() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport("");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonNullSinVotanteNiFichero() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		r.WriteReport(null);
+	}
 	
 	@Test
 	public void testGuardaUnaLineaEnElFichero() throws Exception {
