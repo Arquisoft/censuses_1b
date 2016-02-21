@@ -21,12 +21,26 @@ public class DBUpdate {
 	private static String USER = "sa";
 	private static String PASS = "";
 	
+	private static String DRIVER_TEST = "com.mysql.jdbc.Driver";
+	private static String URL_TEST = "jdbc:mysql://127.0.0.1/censuses_1b";
+	private static String USER_TEST = "travis";
+	private static String PASS_TEST = "";
+	
 	private static Connection con;
 	
-	/**
-	 * Método para establecer una conexión con la BD
-	 */
 	public void conectar () {
+		if(System.getProperty("test_local") == null){
+			conectar_hsqldb();
+		}
+		else{
+			conectar_mysql();
+		}
+	}
+	
+	/**
+	 * Método para establecer una conexión con la BD(hsqldb)
+	 */
+	public void conectar_hsqldb () {
 		try {
 			Class.forName(DRIVER);
 			} catch (ClassNotFoundException e){
@@ -34,6 +48,22 @@ public class DBUpdate {
 				}
 		try {
 			con = DriverManager.getConnection(URL, USER, PASS);
+		} catch (SQLException e) {
+			throw new RuntimeException("No se ha podido establecer la conexión.", e);
+		}		
+	}
+	
+	/**
+	 * Método para establecer una conexión con la BD(mysql)
+	 */
+	public void conectar_mysql () {
+		try {
+			Class.forName(DRIVER_TEST);
+			} catch (ClassNotFoundException e){
+				throw new RuntimeException("No se ha podido cargar el driver.", e);
+				}
+		try {
+			con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
