@@ -34,6 +34,23 @@ public class ReportWritterTest {
 		Votante v=null;
 		r.WriteReport(v, "noExiste", "SinRazon");
 	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testFicheroExcelNull() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
+		r.WriteReport(v, null, "");
+	}
+	
+	@Test(expected = IllegalArgumentException.class) 
+	public void testRazonNull() throws Exception {
+		//comprobar que no se puede pasar info incorrecta
+		ReportWriter r = new ReportWriter();
+		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
+		r.WriteReport(v, "noExiste", null);
+	}
+	
 	@Test(expected = IllegalArgumentException.class) 
 	public void testRazonVacia() throws Exception {
 		//comprobar que no se puede pasar info incorrecta
@@ -48,6 +65,7 @@ public class ReportWritterTest {
 		Votante v=new Votante("NombreFalso", "MailFalso", "dniFalso", "CodigoFalso");
 		r.WriteReport(v, "", "Razon falsa");
 	}
+
 	
 	
 	@Test
