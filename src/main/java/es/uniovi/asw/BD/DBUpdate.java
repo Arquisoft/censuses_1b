@@ -47,7 +47,9 @@ public class DBUpdate {
 				throw new RuntimeException("No se ha podido cargar el driver.", e);
 				}
 		try {
-			con = DriverManager.getConnection(URL, USER, PASS);
+			if(con != null){
+				con = DriverManager.getConnection(URL, USER, PASS);
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
@@ -63,7 +65,16 @@ public class DBUpdate {
 				throw new RuntimeException("No se ha podido cargar el driver.", e);
 				}
 		try {
-			con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
+			if(con != null){
+				con = DriverManager.getConnection(URL_TEST, USER_TEST, PASS_TEST);
+				
+				//Creamos la tabla
+				con.prepareStatement("CREATE TABLE USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
+						+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo"
+						+ " varchar(20), pass varchar(256) );").executeUpdate();
+				
+			}
+
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
 		}		
