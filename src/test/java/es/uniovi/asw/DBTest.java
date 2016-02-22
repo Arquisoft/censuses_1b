@@ -1,9 +1,12 @@
 package es.uniovi.asw;
 
 import static org.junit.Assert.*;
+
 import org.junit.*;
+
 import es.uniovi.asw.BD.DBUpdate;
 import es.uniovi.asw.logica.Votante;
+
 import java.io.*;
 
 /**
@@ -28,7 +31,6 @@ public class DBTest {
 		assertEquals(votante.getMail(), votanteBD.getMail());
 		assertEquals(votante.getNif(), votanteBD.getNif());
 		assertEquals(votante.getCodigoColegio(), votanteBD.getCodigoColegio());
-		db.delete(votante.getNif());
 	}
 	
 	@Test
@@ -43,9 +45,6 @@ public class DBTest {
 		assertTrue(db.exists(votante2.getNif()));
 		assertTrue(db.exists(votante3.getNif()));
 		assertEquals(3, db.count());
-		db.delete(votante1.getNif());
-		db.delete(votante2.getNif());
-		db.delete(votante3.getNif());
 	}
 	
 	@Test(expected=NullPointerException.class)
@@ -60,15 +59,15 @@ public class DBTest {
 		Votante votante2 = new Votante("Nombre2", "nombre2@mail.com", "12345678X", "codigo2");
 		assertEquals(0, db.count());
 		db.insert(votante);
+		assertFalse(new File("report.log").exists());
 		db.insert(votante2);
-		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		assertTrue(new File("report.log").exists());
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
 		assertEquals(votante.getMail(), votanteBD.getMail());
 		assertEquals(votante.getNif(), votanteBD.getNif());
 		assertEquals(votante.getCodigoColegio(), votanteBD.getCodigoColegio());		
-		db.delete(votante.getNif());
 	}
 	
 	@Test
@@ -77,35 +76,15 @@ public class DBTest {
 		Votante votante2 = new Votante("Nombre2", "nombre@mail.com", "00000000P", "codigo2");
 		assertEquals(0, db.count());
 		db.insert(votante);
+		assertFalse(new File("report.log").exists());
 		db.insert(votante2);
-		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		assertTrue(new File("report.log").exists());
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
 		assertEquals(votante.getMail(), votanteBD.getMail());
 		assertEquals(votante.getNif(), votanteBD.getNif());
 		assertEquals(votante.getCodigoColegio(), votanteBD.getCodigoColegio());
-		db.delete(votante.getNif());
-	}
-	
-	private String leeLog() {		
-		FileReader f;
-	    String mensajeReport = "";
-		try {
-			f = new FileReader("report.log");
-			BufferedReader b = new BufferedReader(f);
-		    mensajeReport = b.readLine();
-		    b.close();
-		    f.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return mensajeReport;
-		
 	}
 	
 	@After
