@@ -51,7 +51,7 @@ public class DBUpdate {
 			con = DriverManager.getConnection(url, user, pass);
 			if(driver.equals(DRIVER_MYSQL)){
 				con.prepareStatement("CREATE TABLE IF NOT EXISTS USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
-						+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10), censusesInfo"
+						+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10) UNIQUE, censusesInfo"
 						+ " varchar(20), pass varchar(256) );").executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -70,7 +70,6 @@ public class DBUpdate {
 	}
 
 	public void insert(Votante v){
-		//conectar();
 		String insertar="insert into USUARIOS(name, email, nif, censusesInfo, pass) values (?,?,?,?,?)";
 		PreparedStatement insercion = null;
 		try {			
@@ -98,7 +97,6 @@ public class DBUpdate {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-
 			}
 			else
 			{
@@ -128,13 +126,13 @@ public class DBUpdate {
 
 	}
 
-	public int  delete (Votante v) {		
+	public int  delete (String nif) {		
 		int n = 0;
 		String sentencia = "delete from USUARIOS where nif = ?";
 		PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(sentencia);
-			ps.setString(1, v.getNif());
+			ps.setString(1, nif);
 			n = ps.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -153,13 +151,13 @@ public class DBUpdate {
 
 	}
 
-	public boolean exists (Votante v) {		
+	public boolean exists (String nif) {		
 		String sentencia = "select * from USUARIOS where nif = ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement(sentencia);
-			ps.setString(1, v.getNif());
+			ps.setString(1, nif);
 			rs = ps.executeQuery();
 			if (rs.next())
 				return true;
@@ -180,6 +178,64 @@ public class DBUpdate {
 			}
 		}
 		return false;		
+	}
+	
+	public Votante select (String nif) {		
+		String sentencia = "select * from USUARIOS where nif = ?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(sentencia);
+			ps.setString(1, nif);
+			rs = ps.executeQuery();
+			if (rs.next())
+				return new Votante (rs.getNString("NAME"), rs.getNString("EMAIL"), 
+						rs.getNString("NIF"), rs.getNString("CENSUSESINFO"));
+			else
+				return null;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;		
+	}
+	
+	public int count () {		
+		String sentencia = "select count(*) as total from USUARIOS";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = con.prepareStatement(sentencia);
+			rs = ps.executeQuery();
+			if (rs.next())
+				return rs.getInt("total");
+			else
+				return 0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		finally {
+			try {
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return 0;		
 	}
 
 }
