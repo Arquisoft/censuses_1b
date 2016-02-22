@@ -211,14 +211,14 @@ public class DBUpdate {
 	}
 	
 	public int count () {		
-		String sentencia = "select count(*) as total from USUARIOS";
+		String sentencia = "select count(*) from USUARIOS";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
 			ps = con.prepareStatement(sentencia);
 			rs = ps.executeQuery();
 			if (rs.next())
-				return rs.getInt("total");
+				return rs.getInt(1);
 			else
 				return 0;
 		} catch (SQLException e) {
