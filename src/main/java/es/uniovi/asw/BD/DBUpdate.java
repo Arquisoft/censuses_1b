@@ -125,31 +125,6 @@ public class DBUpdate {
 
 
 	}
-
-	public int  delete (String nif) {		
-		int n = 0;
-		String sentencia = "delete from USUARIOS where nif = ?";
-		PreparedStatement ps = null;
-		try {
-			ps = con.prepareStatement(sentencia);
-			ps.setString(1, nif);
-			n = ps.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-
-		finally {
-			try {
-				ps.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return n;
-
-	}
 	
 	public int  deleteAll () {		
 		int n = 0;
