@@ -59,9 +59,8 @@ public class DBTest {
 		Votante votante2 = new Votante("Nombre2", "nombre2@mail.com", "12345678X", "codigo2");
 		assertEquals(0, db.count());
 		db.insert(votante);
-		assertFalse(new File("report.log").exists());
 		db.insert(votante2);
-		assertTrue(new File("report.log").exists());
+		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
@@ -76,9 +75,8 @@ public class DBTest {
 		Votante votante2 = new Votante("Nombre2", "nombre@mail.com", "00000000P", "codigo2");
 		assertEquals(0, db.count());
 		db.insert(votante);
-		assertFalse(new File("report.log").exists());
 		db.insert(votante2);
-		assertTrue(new File("report.log").exists());
+		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
@@ -92,6 +90,22 @@ public class DBTest {
 		new File("report.log").delete();
 		db.deleteAll();
 	}
+	
+	private String leeLog() {		
+ 		FileReader f;
+ 	    String mensajeReport = "";
+ 		try {
+ 			f = new FileReader("report.log");
+ 			BufferedReader b = new BufferedReader(f);
+ 		    mensajeReport = b.readLine();
+ 		    b.close();
+ 		    f.close();
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
+ 		return mensajeReport;
+ 		
+ 	}
 	
 	@AfterClass
 	public static void afterClass() {

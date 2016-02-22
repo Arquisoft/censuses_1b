@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import es.uniovi.asw.logica.Votante;
 import es.uniovi.asw.reports.ReportWriter;
@@ -79,20 +80,20 @@ public class DBUpdate {
 			insercion.setString(3,v.getNif());
 			insercion.setString(4, v.getCodigoColegio());
 			insercion.setString(5, v.getContraseña());
-			insercion.executeUpdate();			
+			insercion.executeUpdate();	
+		} catch (SQLIntegrityConstraintViolationException e){
+			ReportWriter r = new ReportWriter();
+			try {
+				r.WriteReport("Ya existe el registro en la base de datos.");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} catch (SQLException e) {
 			ReportWriter r = new ReportWriter();
 			if(e.getSQLState().equals("08001")){
 				try {
 					r.WriteReport("No se puede conectar a la base de datos.");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			else if(e.getSQLState().equals("23505")){
-				try {
-					r.WriteReport("Ya existe el registro en la base de datos.");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
