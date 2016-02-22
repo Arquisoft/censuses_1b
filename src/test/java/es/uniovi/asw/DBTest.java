@@ -1,9 +1,12 @@
 package es.uniovi.asw;
 
 import static org.junit.Assert.*;
+
 import org.junit.*;
+
 import es.uniovi.asw.BD.DBUpdate;
 import es.uniovi.asw.logica.Votante;
+
 import java.io.*;
 
 /**
@@ -61,7 +64,8 @@ public class DBTest {
 		assertEquals(0, db.count());
 		db.insert(votante);
 		db.insert(votante2);
-		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		//assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		assertTrue(new File("report.log").exists());
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
@@ -78,7 +82,8 @@ public class DBTest {
 		assertEquals(0, db.count());
 		db.insert(votante);
 		db.insert(votante2);
-		assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		//assertTrue(leeLog().contains("Ya existe el registro en la base de datos."));
+		assertTrue(new File("report.log").exists());
 		assertEquals(1, db.count());
 		Votante votanteBD = db.select(votante.getNif());
 		assertEquals(votante.getNombre(), votanteBD.getNombre());
