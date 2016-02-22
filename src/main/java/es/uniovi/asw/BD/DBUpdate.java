@@ -51,8 +51,8 @@ public class DBUpdate {
 			con = DriverManager.getConnection(url, user, pass);
 			if(driver.equals(DRIVER_MYSQL)){
 				con.prepareStatement("CREATE TABLE IF NOT EXISTS USUARIOS ( id INT AUTO_INCREMENT PRIMARY KEY,"
-						+ " name VARCHAR(30), email  VARCHAR(50) UNIQUE, nif varchar(10) UNIQUE, censusesInfo"
-						+ " varchar(20), pass varchar(256) );").executeUpdate();
+						+ " name VARCHAR(30), email  VARCHAR(50), nif varchar(10), censusesInfo"
+						+ " varchar(20), pass varchar(256), UNIQUE(nif), UNIQUE(email) );").executeUpdate();
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido establecer la conexión.", e);
