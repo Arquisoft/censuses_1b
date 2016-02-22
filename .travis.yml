@@ -13,3 +13,7 @@ before_install:
   - pip install --user codecov
 after_success:
   - codecov
+services:
+  - mysql
+before_script:
+  - mysql -e 'create database censuses_1b;'

@@ -1,6 +1,6 @@
 package es.uniovi.asw;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -21,7 +21,6 @@ public class DBTest {
 	public static void beforeClass() {
 		db.conectar();
 	}
-	
 
 	@Test
 	public void testInsertarVotante() {
