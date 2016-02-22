@@ -111,6 +111,7 @@ public class DBTest {
 	@After
 	public void doAfter() {
 		new File("report.log").delete();
+		db.deleteAll();
 	}
 	
 	@AfterClass

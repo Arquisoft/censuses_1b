@@ -150,6 +150,30 @@ public class DBUpdate {
 		return n;
 
 	}
+	
+	public int  deleteAll () {		
+		int n = 0;
+		String sentencia = "delete from USUARIOS";
+		PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(sentencia);
+			n = ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+
+		finally {
+			try {
+				ps.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return n;
+
+	}
 
 	public boolean exists (String nif) {		
 		String sentencia = "select * from USUARIOS where nif = ?";
