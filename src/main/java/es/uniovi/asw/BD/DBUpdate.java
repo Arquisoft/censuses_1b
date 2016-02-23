@@ -78,7 +78,7 @@ public class DBUpdate {
 			insercion.setString(2,v.getMail() );
 			insercion.setString(3,v.getNif());
 			insercion.setString(4, v.getCodigoColegio());
-			insercion.setString(5, v.getContraseña());
+			insercion.setString(5, v.getContrasena());
 			insercion.executeUpdate();			
 		} catch (SQLException e) {
 			ReportWriter r = new ReportWriter();

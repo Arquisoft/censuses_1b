@@ -7,7 +7,7 @@ public class Votante {
 	private String mail;
 	private String nif;
 	private String codigoColegio;
-	private String contraseña;
+	private String contrasena;
 	
 	public Votante(String nombre, String mail, String nif, String codigoColegio){
 		this.nombre=nombre;
@@ -36,12 +36,12 @@ public class Votante {
 		return codigoColegio;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 	
-	public void setContraseña(String contraseña) {
-		this.contraseña=contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena=contrasena;
 	}
 
 	@Override

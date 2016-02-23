@@ -8,7 +8,7 @@ public class Comprobaciones {
 		
 		return (!isStringVacio(votante.getNombre()) &&
 				!isStringVacio(votante.getCodigoColegio()) &&
-				!isStringVacio(votante.getContraseña()) &&
+				!isStringVacio(votante.getContrasena()) &&
 				!isStringVacio(votante.getMail()) &&
 				!isStringVacio(votante.getNif())) && 
 				(votante.getNif().length() == 9);

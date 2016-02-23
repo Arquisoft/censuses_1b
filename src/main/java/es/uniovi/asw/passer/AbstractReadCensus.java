@@ -17,7 +17,7 @@ public abstract class AbstractReadCensus implements ReadCensus{
 	
 	protected String ruta;
 	protected GeneradorCartas generadorCartas;
-	protected GeneradorContraseñas generadorContraseñas = new HashedGenerator();
+	protected GeneradorContrasenas generadorContraseñas = new HashedGenerator();
 	protected ReportWriter rW = new ReportWriter();
 
 	public AbstractReadCensus(String ruta) {
@@ -44,7 +44,7 @@ public abstract class AbstractReadCensus implements ReadCensus{
 			List<Votante> votantesLeidos = parserArchivo(archivo);
 			List<Votante> votantes = new ArrayList<Votante>();
 			for(Votante votante : votantesLeidos){
-				votante.setContraseña(generadorContraseñas.generar(votante));
+				votante.setContrasena(generadorContraseñas.generar(votante));
 				if(Comprobaciones.isVotanteCorreto(votante)){
 					generadorCartas.generarCarta(votante);
 					votantes.add(votante);

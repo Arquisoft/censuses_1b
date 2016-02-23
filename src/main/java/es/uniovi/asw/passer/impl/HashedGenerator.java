@@ -4,10 +4,10 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 
 import es.uniovi.asw.logica.Votante;
-import es.uniovi.asw.passer.GeneradorContraseñas;
+import es.uniovi.asw.passer.GeneradorContrasenas;
 
 
-public class HashedGenerator implements GeneradorContraseñas {
+public class HashedGenerator implements GeneradorContrasenas {
 
 	@Override
 	public String generar(Votante v) {

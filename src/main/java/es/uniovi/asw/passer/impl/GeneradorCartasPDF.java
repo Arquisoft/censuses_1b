@@ -20,7 +20,7 @@ public class GeneradorCartasPDF implements GeneradorCartas {
 	    PdfWriter.getInstance(documento, archivo);
 	    documento.open();
 	    documento.add(new Paragraph("Usuario:"+v.getMail()));
-	    documento.add(new Paragraph(("Contraseña:"+v.getContraseña())));
+	    documento.add(new Paragraph(("Contraseña:"+v.getContrasena())));
 	    documento.close();
 	}
 
