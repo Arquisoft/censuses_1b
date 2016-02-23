@@ -235,6 +235,17 @@
 			<timezone>2</timezone>
 			<properties />
 		</developer>
+			<developer>
+			<id>davidslufe02</id>
+			<name>David Sánchez Luis</name>
+			<email>uo237085@uniovi.es</email>
+			<roles>
+				<role>Project Admin</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>2</timezone>
+			<properties />
+		</developer>
 	</developers>
 
 
